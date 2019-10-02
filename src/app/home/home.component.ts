@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       subnick: 'Mi mensaje personal',
       age: 22,
       email: 'maria@platzi.com',
-      friend: true,
+      friend: false,
       uid:3
     };
 
