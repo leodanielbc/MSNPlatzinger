@@ -5,6 +5,7 @@
   <div>
     <a routerLink="/conversation/{{user.uid}}">
       {{i+1}} {{user.nick}} - {{user.email}}
+      <img id="statusLogo" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
     </a>
 </div>
 </ng-container>
