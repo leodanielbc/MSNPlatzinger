@@ -55,3 +55,9 @@
 #homeAvatarPicture{
     max-width: 100px;
 }
+.disblo{
+    display: block !important;
+}
+.marbo5{
+    margin-bottom: 5px;
+}

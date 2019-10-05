@@ -19,16 +19,26 @@
     </div>
   </div>
 
-  <input type="text" placeholder="Buscar amigo" [(ngModel)]="query">
-  <br/>
-  <b>Amigos</b>
-  <ng-container *ngFor="let user of friends | search:query; let i=index">
-    <div>
-      <a routerLink="/conversation/{{user.uid}}">
-        {{i+1}} {{user.nick}} - {{user.email}}
-        <img id="statusLogo" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
-      </a>
+  <div class="whiteContainerPadded marto15">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar amigo" [(ngModel)]="query">
+      </div>
+      <div class="col-md-auto">
+        <img src="assets/img/logo_live_add.png" class="icon" alt="">
+      </div>
+    </div>
+
+    <hr/>
+    <b>Amigos ({{friends.length}}/{{friends.length}})</b>
+    <!-- en vez de la clase disblo se puede utilizar la clase de bootstrap (d-block)-->
+    <div *ngFor="let user of friends | search:query; let i=index" class="disblo marbo5">
+        <span routerLink="/conversation/{{user.uid}}">
+          <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
+          <b>{{user.nick}} </b>- {{user.subnick || 'No subnick'}}
+          <small>{{user.email}}</small>
+        </span>
+      </div>
   </div>
-  </ng-container>
 </div>
 
