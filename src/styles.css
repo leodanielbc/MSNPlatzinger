@@ -14,6 +14,22 @@
     border: 1px solid white;
     display: inline-block;
 }
+.avatarFrameonline {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d2ff6b+0,81ff3d+50,0cff00+51,0dbc03+100 */
+    background: #d2ff6b; /* Old browsers */
+    background: -moz-linear-gradient(top, #d2ff6b 0%, #81ff3d 50%, #0cff00 51%, #0dbc03 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #d2ff6b 0%,#81ff3d 50%,#0cff00 51%,#0dbc03 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #d2ff6b 0%,#81ff3d 50%,#0cff00 51%,#0dbc03 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff6b', endColorstr='#0dbc03',GradientType=0 ); /* IE6-9 */
+    text-align: center;
+    padding: 5%;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    -webkit-box-shadow: 3px 3px 21px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 21px 1px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 21px 1px rgba(0,0,0,0.75);
+    display: inline-block;
+}
 .center{
     text-align: center !important;
 }
@@ -35,4 +51,7 @@
     background: -ms-linear-gradient(45deg, rgba(0,177,247,1) 0%, rgba(89,164,189,0.28) 100%);
     background: linear-gradient(45deg, rgba(0,177,247,1) 0%, rgba(89,164,189,0.28) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b1f7', endColorstr='#59a4bd', GradientType=1 );
+}
+#homeAvatarPicture{
+    max-width: 100px;
 }
