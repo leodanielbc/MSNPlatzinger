@@ -41,7 +41,7 @@ export class UserService {
       email: 'rous@gmail.com',
       friend: false,
       status:'offline',
-      uid:3
+      uid:4
     };
 
     this.friends=[usuario1, usuario2, usuario3, usuario4];

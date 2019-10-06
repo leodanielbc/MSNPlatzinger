@@ -1,9 +1,57 @@
-<p>
-  {{friend | json}}
-</p>
-<p>
-  {{price | number: '1.2-2'}}
-</p>
-<p>
-  {{today | date: 'fullDate'}}
-</p>
+<div id="conversationContainer">
+  <div class="container pato45">
+    <div class="row">
+        <div class="col-md-3">
+          <div class="avatarFrameonline">
+            <img src="assets/img/generic_avatar.png" class="img-fluid">
+          </div>
+
+          <div class="whiteContainerPadded marto15">
+              <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Buscar amigo" [(ngModel)]="query">
+                </div>
+              </div>
+              <hr/>
+              <b>Amigos ({{friends.length}}/{{friends.length}})</b>
+              <!-- en vez de la clase disblo se puede utilizar la clase de bootstrap (d-block)-->
+              <div *ngFor="let user of friends | search:query; let i=index" class="disblo marbo5">
+                  <span (click)="conversationTofriend(user.uid)">
+                    <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
+                    <b>{{user.nick}} </b>
+                    <small>{{user.email}}</small>
+                  </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-9">
+            <div>
+                <h1>{{friend.nick}} <small style="font-size: 16px;">({{friend.status}})</small></h1>
+                <label fixed><b>Email:</b></label>
+                <label>{{friend.email}}</label>
+                <br/>
+                <label fixed><b>Age:</b></label>
+                <label>{{friend.age}}</label>
+            </div>
+            <hr/>
+            <div>
+              <div class="autor1">
+                Hola
+              </div>
+              <br/>
+              <br/>
+              <div class="autor2">
+                  Que tal como vas
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <div>
+              <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
