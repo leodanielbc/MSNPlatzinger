@@ -10,6 +10,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { SearchPipe } from './pipes/search';
 import {FormsModule} from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 
 const appRoutes:Routes =[
@@ -32,7 +38,12 @@ const appRoutes:Routes =[
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule// esta importacion sirve para poder utilizar el ngModel
+    FormsModule,// esta importacion sirve para poder utilizar el ngModel
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
