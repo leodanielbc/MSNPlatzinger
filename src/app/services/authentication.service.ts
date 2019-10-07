@@ -15,7 +15,7 @@ export class AuthenticationService {
     return this.angularFireAuth.auth.createUserWithEmailAndPassword(email,password);
   }
   getStatus(){
-    return this.angularFireAuth.authState;
+    return this.angularFireAuth.authState;//trae el objeto de sesion de un usuario
   }
   logout(){
     return this.angularFireAuth.auth.signOut();
