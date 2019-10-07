@@ -12,6 +12,7 @@ export class ConversationComponent implements OnInit {
 
   friendId: any;
   public friend: User;
+  friends:User[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService:UserService) {
@@ -22,6 +23,7 @@ export class ConversationComponent implements OnInit {
       console.log(error);
     });
     console.log(this.friend);
+    this.getFriends();
   }
   ngOnInit() {
   }
@@ -30,5 +32,11 @@ export class ConversationComponent implements OnInit {
   //     return record.uid == id;
   //   });
   //}
-
+  getFriends(){
+    this.userService.getUsers().valueChanges().subscribe((data:User[])=>{
+      this.friends=data;
+    },(error)=>{
+      console.log(error);
+    });
+  }
 }
