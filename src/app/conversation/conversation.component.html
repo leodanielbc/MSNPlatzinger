@@ -6,16 +6,16 @@
             <img src="assets/img/generic_avatar.png" class="img-fluid">
           </div>
 
-          <div class="whiteContainerPadded marto15">
+          <!-- <div class="whiteContainerPadded marto15">
               <div class="row">
                 <div class="col">
                   <input type="text" class="form-control" placeholder="Buscar amigo" [(ngModel)]="query">
                 </div>
               </div>
               <hr/>
-              <b>Amigos ({{friends.length}}/{{friends.length}})</b>
+              <b>Amigos ({{friends.length}}/{{friends.length}})</b> -->
               <!-- en vez de la clase disblo se puede utilizar la clase de bootstrap (d-block)-->
-              <div *ngFor="let user of friends | search:query; let i=index" class="disblo marbo5">
+              <!-- <div *ngFor="let user of friends | search:query; let i=index" class="disblo marbo5">
                   <span (click)="conversationTofriend(user.uid)">
                     <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
                     <b>{{user.nick}} </b>
@@ -23,7 +23,7 @@
                   </span>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
         <div class="col-md-9">

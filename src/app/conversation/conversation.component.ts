@@ -11,27 +11,24 @@ import { User } from '../interfaces/user';
 export class ConversationComponent implements OnInit {
 
   friendId: any;
-  friends: User[];
-  friend: User;
-
-  price:number = 78.2273;
-  today:any= Date.now();
+  public friend: User;
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService:UserService) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
-    this.friends = userService.getFriends();
-    this.friend = this.friends.find((record)=>{
-      return record.uid == this.friendId;
+    this.userService.getUserById(this.friendId).valueChanges().subscribe((data:User)=>{
+      this.friend=data;
+    },(error)=>{
+      console.log(error);
     });
     console.log(this.friend);
   }
   ngOnInit() {
   }
-  conversationTofriend(id){
-    this.friend = this.friends.find((record)=>{
-      return record.uid == id;
-    });
-  }
+  // conversationTofriend(id){
+  //   this.friend = this.friends.find((record)=>{
+  //     return record.uid == id;
+  //   });
+  //}
 
 }
