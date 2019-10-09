@@ -36,7 +36,28 @@
                 <label>{{friend.age}}</label>
             </div>
             <hr/>
-            <div>
+            <div class="vh55 overscroll pabo10" id="messageArea">
+              <div *ngFor="let m of conversation">
+                <b>{{getUserNickById(m.sender)}}</b> dice: <br/>
+                <span>{{m.text}}</span>
+              </div>
+              <!-- <div class="autor1">
+                Hola
+              </div>
+              <br/>
+              <br/>
+              <div class="autor2">
+                  Que tal como vas
+              </div> -->
+            </div>
+            <!-- <div>
+              <div *ngFor="let m of conversation">
+                <b>{{getUserNickById(m.sender)}}</b> dice: <br/>
+                <span>{{m.text}}</span>
+                <div class="autor2">
+                  {{m.textMessage}}
+                </div>
+              </div>
               <div class="autor1">
                 Hola
               </div>
@@ -45,11 +66,27 @@
               <div class="autor2">
                   Que tal como vas
               </div>
-            </div>
-            <br/>
-            <br/>
-            <div>
-              <textarea [(ngModel)]="textMessage" (keyup.enter)="sendMessage()" class="form-control" aria-label="With textarea"></textarea>
+            </div> -->
+            <div class="messageControlsContainer">
+              <textarea [(ngModel)]="textMessage" (keyup.enter)="sendMessage()" class="form-control" cols="30" rows="5" ></textarea>
+              <div id="messageToolBar">
+                <div class="item">
+                  <img src="assets/img/icons/regular_smile.gif" class="tool">
+                  <i name="caret-down"></i>
+                </div>
+                <div class="item">
+                  <img src="assets/img/icons/wink_smile.gif" class="tool">
+                  <i name="caret-down"></i>
+                </div>
+                <div class="item" >
+                  <img src="assets/img/zumbido.png" class="tool">
+                </div>
+                <a class="btn btn-primary btn-sm" accept="image/*">Enviar</a>
+                <label class="custom-file-upload">
+                  <input type="file">
+                  <i name="image"></i> Seleccionar Imagen
+                </label>
+              </div>
             </div>
         </div>
     </div>

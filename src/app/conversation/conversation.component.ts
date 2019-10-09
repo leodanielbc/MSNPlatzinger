@@ -16,8 +16,9 @@ export class ConversationComponent implements OnInit {
   public friend: User;
   friends:User[];
   user:User;
-  conversation_id:string;//guardar el id unico
+  conversation_id:string;//guardar el id unico (idUser1 y idUser2)
   textMessage: string;
+  conversation:any[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService:UserService,
@@ -37,7 +38,7 @@ export class ConversationComponent implements OnInit {
   //   });
   //}
 
-  //se crea un ID unico usando los dos IDs de los usauarios
+  //se crea un ID unico usando los dos IDs de los usuarios
   generateIdUnic(){
     this.authenticationService.getStatus().subscribe((getSession)=>{
       this.userService.getUserById(getSession.uid).valueChanges().subscribe((user:User)=>{
@@ -46,6 +47,7 @@ export class ConversationComponent implements OnInit {
           this.friend=data;
           const ids=[this.user.uid, this.friend.uid].sort();
           this.conversation_id = ids.join('|');
+          this.getConversation();
         },(error)=>{
           console.log(error);
         });
@@ -70,5 +72,28 @@ export class ConversationComponent implements OnInit {
     this.conversationService.createConversation(message).then(()=>{
       this.textMessage = '';
     });
+  }
+  getConversation(){
+    this.conversationService.getConversation(this.conversation_id).valueChanges().subscribe((data)=>{
+      console.log(data);
+      this.conversation = data;
+      this.conversation.forEach((message)=>{
+        if(!message.seen){
+          message.seen = true;//lo marcamos como visto
+          this.conversationService.editConversation(message);
+          const audio = new Audio('assets/sound/new_message.m4a');
+          audio.play();
+        }
+      })
+    },(error)=>{
+      console.log(error);
+    });
+  }
+  getUserNickById(id){
+    if(id === this.friend.uid){
+      return this.friend.nick;
+    }else{
+      return this.user.nick;
+    }
   }
 }
