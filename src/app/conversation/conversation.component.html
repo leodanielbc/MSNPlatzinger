@@ -1,4 +1,4 @@
-<div id="conversationContainer">
+<div id="conversationContainer" [ngClass]="{'shaker': shake}">
   <div class="container pato45">
     <div class="row">
         <div class="col-md-3">
@@ -78,7 +78,7 @@
                   <img src="assets/img/icons/wink_smile.gif" class="tool">
                   <i name="caret-down"></i>
                 </div>
-                <div class="item" >
+                <div class="item" (click)="sendZumbido()">
                   <img src="assets/img/zumbido.png" class="tool">
                 </div>
                 <a class="btn btn-primary btn-sm" accept="image/*">Enviar</a>
