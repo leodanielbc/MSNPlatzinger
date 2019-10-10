@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
       const user={
         uid: data.user.uid,// se guarda como uid el nombre del nodo que le pone firebase al objeto guardado
         email: this.email,
-        nick: this.nick
+        nick: this.nick,
+        status:'online'
       };
       this.userService.createUser(user).then((data2)=>{
         alert('Registrado correctamente');
