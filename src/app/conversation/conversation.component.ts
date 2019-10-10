@@ -4,6 +4,8 @@ import { UserService } from '../services/user.service';
 import { User } from '../interfaces/user';
 import { ConversationService } from '../services/conversation.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-conversation',
@@ -20,11 +22,15 @@ export class ConversationComponent implements OnInit {
   textMessage: string;
   conversation:any[];
   shake:boolean=false;
+  usuario:string;
+  croppedImage: any = '';
+  imageChangedEvent: any = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private userService:UserService,
               private conversationService:ConversationService,
-              private authenticationService:AuthenticationService) {
+              private authenticationService:AuthenticationService,
+              private firebaseStorage:AngularFireStorage) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
 
     this.getFriends();
@@ -46,6 +52,7 @@ export class ConversationComponent implements OnInit {
         this.user=user;
         this.userService.getUserById(this.friendId).valueChanges().subscribe((data:User)=>{
           this.friend=data;
+          console.log(this.friend);
           const ids=[this.user.uid, this.friend.uid].sort();
           this.conversation_id = ids.join('|');
           this.getConversation();
@@ -117,9 +124,55 @@ export class ConversationComponent implements OnInit {
   }
   getUserNickById(id){
     if(id === this.friend.uid){
-      return this.friend.nick;
+      //return this.friend.nick;
+      return true;
     }else{
-      return this.user.nick;
+      //return this.user.nick;
+      return false;
     }
+  }
+
+  saveImageMenssage() {
+    if (this.croppedImage) {
+      const idImage = Date.now();
+      const savePicture = this.firebaseStorage.ref('/picturesConversation/' + idImage + '.jpg').putString(this.croppedImage, 'data_url');
+      savePicture.then(() => {
+        const urlPicture = this.firebaseStorage.ref('/picturesConversation/' + idImage + '.jpg').getDownloadURL();
+        urlPicture.subscribe((url) => {
+          this.sendImageConversation(url);
+        });
+      });
+    }
+  }
+
+  sendImageConversation(url: string) {
+    const message = {
+      uid: this.conversation_id,
+      timestamp: Date.now(),
+      text: url,
+      sender: this.user.uid,
+      receiver: this.friend.uid,
+      type: 'image'
+    };
+
+    this.conversationService.createConversation(message).then(() => {
+      this.croppedImage = null;
+    });
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+      this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  cropperReady() {
+      // cropper ready
+  }
+  loadImageFailed() {
+      // show message
   }
 }

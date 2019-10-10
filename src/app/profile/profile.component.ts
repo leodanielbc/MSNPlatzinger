@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
               private authenticationService:AuthenticationService,
               private firebaseStorage:AngularFireStorage) {
 
-                this.authenticationService.getStatus().subscribe((status)=>{
+    this.authenticationService.getStatus().subscribe((status)=>{
       this.userService.getUserById(status.uid).valueChanges().subscribe((data:User)=>{
         this.user=data;
         console.log(this.user);
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     },(error)=>{
       console.log(error);
     });
-              }
+  }
 
   ngOnInit() {
   }

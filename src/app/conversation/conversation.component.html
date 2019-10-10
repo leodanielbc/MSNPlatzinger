@@ -1,9 +1,9 @@
 <div id="conversationContainer" [ngClass]="{'shaker': shake}">
   <div class="container pato45">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="friend">
           <div class="avatarFrameonline">
-            <img src="assets/img/generic_avatar.png" class="img-fluid">
+            <img [src]="friend.avatar || 'assets/img/generic_avatar.png'" class="img-fluid">
           </div>
 
           <div class="whiteContainerPadded marto15">
@@ -36,38 +36,58 @@
                 <label>{{friend.age}}</label>
             </div>
             <hr/>
-            <div class="vh55 overscroll pabo10" id="messageArea">
+            <!-- <div class="vh55 overscroll pabo10" id="messageArea">
               <div *ngFor="let m of conversation">
-                <b>{{getUserNickById(m.sender)}}</b> dice: <br/>
-                <span>{{m.text}}</span>
-              </div>
-              <!-- <div class="autor1">
-                Hola
-              </div>
-              <br/>
-              <br/>
-              <div class="autor2">
-                  Que tal como vas
-              </div> -->
-            </div>
-            <!-- <div>
-              <div *ngFor="let m of conversation">
-                <b>{{getUserNickById(m.sender)}}</b> dice: <br/>
-                <span>{{m.text}}</span>
-                <div class="autor2">
-                  {{m.textMessage}}
+                <div class="col-md-auto">
+                  <div *ngIf="getUserNickById(m.sender)==false" class="autor1">
+                    <span>{{m.text}}</span>
+                    <img *ngIf="m.type=='zumbido'" src="assets/img/zumbido.png" id="zumbido">
+                  </div>
+                </div>
+                <div class="col-md-auto">
+                  <div *ngIf="getUserNickById(m.sender)==true" class="autor2">
+                    <span>{{m.text}}</span>
+                    <img *ngIf="m.type=='zumbido'" src="assets/img/zumbido.png" id="zumbido">
+                  </div>
                 </div>
               </div>
-              <div class="autor1">
-                Hola
-              </div>
-              <br/>
-              <br/>
-              <div class="autor2">
-                  Que tal como vas
-              </div>
             </div> -->
-            <div class="messageControlsContainer">
+            <div id="frame">
+            <div class="content">
+              <div class="messages">
+                <ul *ngFor="let m of conversation">
+                  <li class="sent" *ngIf="getUserNickById(m.sender)==true">
+                    <img *ngIf="friend.avatar" [src]="friend.avatar" alt="" />
+                    <img *ngIf="!friend.avatar" [src]="'assets/img/generic_avatar.png'" alt="" />
+                    <p *ngIf="m.text">{{m.text}}</p>
+                    <img *ngIf="m.type=='zumbido'" src="assets/img/zumbido.png" id="zumbido">
+                  </li>
+                  <li class="replies" *ngIf="getUserNickById(m.sender)==false">
+                    <img *ngIf="user.avatar" [src]="user.avatar" alt="" />
+                    <img *ngIf="!user.avatar" [src]="'assets/img/generic_avatar.png'" alt="" />
+                    <p *ngIf="m.text">{{m.text}}</p>
+                    <img *ngIf="m.type=='zumbido'" src="assets/img/zumbido.png" id="zumbido">
+                  </li>
+                </ul>
+              </div>
+              <div class="message-input">
+                <div class="wrap">
+                  <input type="text" [(ngModel)]="textMessage" placeholder="Write your message..." />
+                  <!-- <div id="messageToolBar">
+                    <div class="item" (click)="sendZumbido()">
+                      <img src="assets/img/zumbido.png" class="tool">
+                    </div>
+                  </div> -->
+                  <label>
+                    <input type="file">
+                    <i class="fa fa-paperclip attachment" aria-hidden="true" data-toggle="modal" data-target="#bs-conf-modal-lg"></i>
+                  </label>
+                  <button class="submit" (click)="sendMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+
+                </div>
+              </div>
+
+            <!-- <div class="messageControlsContainer">
               <textarea [(ngModel)]="textMessage" (keyup.enter)="sendMessage()" class="form-control" cols="30" rows="5" ></textarea>
               <div id="messageToolBar">
                 <div class="item">
@@ -87,8 +107,10 @@
                   <i name="image"></i> Seleccionar Imagen
                 </label>
               </div>
-            </div>
+            </div> -->
         </div>
+      </div>
+
     </div>
   </div>
 </div>

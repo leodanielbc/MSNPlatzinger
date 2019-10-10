@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   friends: User[];
   query:string='';
+  user:User;
   constructor(private userServices:UserService,
               private authenticationService:AuthenticationService,
               private router:Router) {
@@ -20,8 +21,20 @@ export class HomeComponent implements OnInit {
     },(error)=>{
       console.log(error);
     });
+    this.userAutenticado();
   }
-
+  userAutenticado(){
+    this.authenticationService.getStatus().subscribe((status)=>{
+      this.userServices.getUserById(status.uid).valueChanges().subscribe((data:User)=>{
+        this.user=data;
+        console.log(this.user);
+      },(error)=>{
+        console.log(error);
+      });
+    },(error)=>{
+      console.log(error);
+    });
+  }
   ngOnInit() {
   }
   logout(){

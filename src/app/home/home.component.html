@@ -1,16 +1,16 @@
 <div id="homeContainer">
   <div class="whiteBorderGlassBox">
     <div class="homeHeadContainer">
-      <div class="row">
+      <div class="row" *ngIf="user">
         <div class="col-md-auto">
           <div class="avatarFrameonline">
-              <img src="assets/img/generic_avatar.png" id="homeAvatarPicture">
+              <img [src]="user.avatar || 'assets/img/generic_avatar.png'" id="homeAvatarPicture">
           </div>
         </div>
         <div class="col">
-          <b>Leo</b>
+          <b>{{user.nick}}</b>
           <div>
-            <span>Online</span>
+            <span>{{user.status}}</span>
             <br/>
             <span>< Escriba un mensaje personal ></span><br/>
             <a class="btn btn-danger" (click)="logout()">Logout</a>
