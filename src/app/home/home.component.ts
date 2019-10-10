@@ -3,6 +3,8 @@ import { User } from '../interfaces/user';
 import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RequestsService } from '../services/requests.service';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +15,13 @@ export class HomeComponent implements OnInit {
   friends: User[];
   query:string='';
   user:User;
+  friendEmail:string='';
+
   constructor(private userServices:UserService,
               private authenticationService:AuthenticationService,
-              private router:Router) {
+              private router:Router,
+              private modalService: NgbModal,
+              private requestService:RequestsService) {
     userServices.getUsers().valueChanges().subscribe((data:User[])=>{
       this.friends=data;
     },(error)=>{
@@ -43,6 +49,27 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['login']);
     }).catch((error)=>{
       console.log(error)
+    });
+  }
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  sendRequest(){
+    const request = {
+      timestamp: Date.now(),
+      receiver_email: this.friendEmail,
+      sender: this.user.uid,
+      status: 'pending'
+    };
+    this.requestService.createRequest(request).then(()=>{
+      alert('Solicitud enviada');
+    }).catch((error)=>{
+      alert('Hubo un error');
+      console.log(error);
     });
   }
 }
