@@ -16,7 +16,7 @@ export class ConversationComponent implements OnInit {
 
   friendId: any;
   public friend: User;
-  friends:User[];
+  friends:User[]=[];
   user:User;
   conversation_id:string;//guardar el id unico (idUser1 y idUser2)
   textMessage: string;
@@ -32,27 +32,35 @@ export class ConversationComponent implements OnInit {
               private authenticationService:AuthenticationService,
               private firebaseStorage:AngularFireStorage) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
-
-    this.getFriends();
     this.generateIdUnic();
-
   }
   ngOnInit() {
   }
-  // conversationTofriend(id){
-  //   this.friend = this.friends.find((record)=>{
-  //     return record.uid == id;
-  //   });
-  //}
+  conversationTofriend(id){
+    this.friends=[];
+    this.friendId = id;
+    this.generateIdUnic();
+  }
 
   //se crea un ID unico usando los dos IDs de los usuarios
   generateIdUnic(){
     this.authenticationService.getStatus().subscribe((getSession)=>{
       this.userService.getUserById(getSession.uid).valueChanges().subscribe((user:User)=>{
         this.user=user;
+        //obtenemos los amigos del usuario autenticado
+        if(this.user.friends){
+          this.user.friends = Object.values(this.user.friends);//transforma los elementos en objetos, ordena los valores que obtenemos
+          this.user.friends.forEach((id)=>{
+            this.userService.getUserById(id).valueChanges().subscribe((data:User)=>{
+              this.friends.push(data);
+            },(error)=>{
+              console.log(error);
+            });
+          })
+        }
         this.userService.getUserById(this.friendId).valueChanges().subscribe((data:User)=>{
           this.friend=data;
-          console.log(this.friend);
+          //console.log(this.friend);
           const ids=[this.user.uid, this.friend.uid].sort();
           this.conversation_id = ids.join('|');
           this.getConversation();
@@ -61,13 +69,6 @@ export class ConversationComponent implements OnInit {
         });
       });
     })
-  }
-  getFriends(){
-    this.userService.getUsers().valueChanges().subscribe((data:User[])=>{
-      this.friends=data;
-    },(error)=>{
-      console.log(error);
-    });
   }
   sendMessage(){
     const message={

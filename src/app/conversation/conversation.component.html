@@ -13,15 +13,14 @@
                 </div>
               </div>
               <hr/>
-              <b *ngIf="friends">Amigos ({{friends.length}}/{{friends.length}})</b>
+              <b *ngIf="user && user.friends">Amigos ({{user.friends.length}}/{{user.friends.length}})</b>
               <!-- en vez de la clase disblo se puede utilizar la clase de bootstrap (d-block)-->
-              <div *ngFor="let user of friends | search:query; let i=index" class="disblo marbo5">
+              <div *ngFor="let user of friends" class="disblo marbo5">
                   <span (click)="conversationTofriend(user.uid)">
                     <img class="icon" src="assets/img/logo_live_{{user.status}}.png" alt="status del usuario">
                     <b>{{user.nick}} </b>
-                    <!-- <small>{{user.email}}</small> -->
                   </span>
-                </div>
+              </div>
             </div>
         </div>
 
