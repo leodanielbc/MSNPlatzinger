@@ -3,6 +3,8 @@
 #configuracion firebase
 /srs/environments
 
+#image sounds
+/src/app/assets
 # compiled output
 /dist
 /tmp
