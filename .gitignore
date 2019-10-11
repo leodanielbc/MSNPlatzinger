@@ -1,8 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 #configuracion firebase
-/srs/environments
+srs/environments
 
+#image sounds
+src/app/assets
 # compiled output
 /dist
 /tmp
